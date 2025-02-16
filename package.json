@@ -1,0 +1,26 @@
+{
+  "name": "cursiva_backend",
+  "version": "0.0.0",
+  "description": "Cursiva Backend is an Express application and API that works as the server and core of the Cursiva: University Academic Manager project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lejito/cursiva_backend.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "nodejs",
+    "express",
+    "postgresql"
+  ],
+  "author": "Lejito (Alejandro Córdoba Ríos)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lejito/cursiva_backend/issues"
+  },
+  "homepage": "https://github.com/lejito/cursiva_backend#readme"
+}
