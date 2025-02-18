@@ -1,0 +1,42 @@
+name: Build and Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  create-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create env file
+        env:
+          PORT: ${{ secrets.PORT }}
+        run: |
+          touch .env
+          echo PORT=${PORT} >> .env
+
+      - name: Use Node 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - run: pnpm install
+
+      - run: pnpm build
+
+      - name: Install railway
+        run: pnpm install -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
