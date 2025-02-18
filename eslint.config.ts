@@ -12,10 +12,12 @@ export default [
 			parser: tsParser,
 		},
 		rules: {
+			"no-unused-vars": "warn",
+			"no-undef": "off",
 			"no-console": ["off"],
 			eqeqeq: "warn",
-			curly: "warn",
-			semi: "error",
+			curly: "off",
+			semi: "off",
 		},
 	},
 ] satisfies Linter.Config[];
