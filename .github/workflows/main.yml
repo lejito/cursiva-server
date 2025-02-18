@@ -1,0 +1,41 @@
+name: Build and Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build project
+        run: pnpm build
+      - name: Create env file
+        env:
+          PORT: ${{ secrets.PORT }}
+        run: |
+          touch .env
+          echo PORT=${PORT} >> .env
+      - name: Install railway
+        run: pnpm install -g @railway/cli
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@main
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        with:
+          service: ${{ secrets.RAILWAY_SERVICE}}
