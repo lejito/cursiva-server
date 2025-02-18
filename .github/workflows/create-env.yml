@@ -13,9 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2
-        with:
-          envkey_PORT: ${{ secrets.PORT }}
-          directory: "./"
-          file_name: ".env"
+      - name: Create env file
+        env: 
+            PORT: ${{ secrets.PORT }}
+        run: |
+          touch .env
+          echo PORT=${PORT} >> .env
+          cat .env
