@@ -34,8 +34,8 @@ jobs:
       - name: Install railway
         run: pnpm install -g @railway/cli
       - name: Deploy to Railway
-        uses: bervProject/railway-deploy@main
+        #run: railway deploy --token $RAILWAY_TOKEN --service $RAILWAY_SERVICE
+        run: railway logs --token $RAILWAY_TOKEN
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        with:
-          service: ${{ secrets.RAILWAY_SERVICE}}
+          RAILWAY_SERVICE: ${{ secrets.RAILWAY_SERVICE }}
