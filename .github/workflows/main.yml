@@ -9,36 +9,35 @@ on:
       - main
 
 jobs:
-  create-env:
+  build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [22]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
       - name: Create env file
         env:
           PORT: ${{ secrets.PORT }}
         run: |
           touch .env
           echo PORT=${PORT} >> .env
-
-      - name: Use Node 22
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-          cache: "pnpm"
-
       - name: Install pnpm
-        run: npm install -g pnpm@latest-10
-
-      - run: pnpm install
-
-      - run: pnpm build
-
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build project
+        run: pnpm build
       - name: Install railway
         run: pnpm install -g @railway/cli
-
       - name: Deploy to Railway
         run: railway up
         env:
