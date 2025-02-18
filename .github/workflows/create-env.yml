@@ -1,0 +1,21 @@
+name: Create .env file
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2
+        with:
+          envkey_PORT: ${{ secrets.PORT }}
+          directory: "./"
+          file_name: ".env"
