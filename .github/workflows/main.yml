@@ -14,28 +14,36 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Create env file
+        uses: SpicyPizza/create-envfile@v2
+        with:
+          envkey_PORT: ${{ secrets.PORT }}
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+
       - name: Install dependencies
         run: pnpm install
+
       - name: Build project
         run: pnpm build
-      - name: Create env file
-        env:
-          PORT: ${{ secrets.PORT }}
-        run: |
-          touch .env
-          echo PORT=${PORT} >> .env
+
       - name: Install railway
         run: pnpm install -g @railway/cli
+
+      - name: Set Railway Token
+        run: echo "RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }}" >> $GITHUB_ENV
+
       - name: Deploy to Railway
         #run: railway deploy --token $RAILWAY_TOKEN --service $RAILWAY_SERVICE
-        run: railway logs --token $RAILWAY_TOKEN
+        run: railway logs --token $RAILWAY_TOKEN --service $RAILWAY_SERVICE
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_SERVICE: ${{ secrets.RAILWAY_SERVICE }}
