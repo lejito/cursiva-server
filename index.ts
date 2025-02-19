@@ -1,8 +1,6 @@
 import app from "@/app";
 import http from "http";
 
-process.loadEnvFile();
-
 const PORT = parseInt(process.env.PORT || "3000");
 
 // Create the HTTP server with the Express API REST app
