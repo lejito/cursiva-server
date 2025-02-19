@@ -58,3 +58,6 @@ jobs:
 
       - name: Deploy to Railway
         run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway up --service=${{ secrets.RAILWAY_SERVICE }} --ci
+
+      - name: Start application
+        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway run --service=${{ secrets.RAILWAY_SERVICE }} pnpm start
