@@ -1,5 +1,6 @@
 import app from "@/app";
 import http from "http";
+import 'dotenv/config';
 
 const PORT = parseInt(process.env.PORT || "3000");
 
