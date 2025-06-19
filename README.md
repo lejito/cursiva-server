@@ -1,4 +1,4 @@
-# Cursiva Backend
+# Cursiva Server
 
 Cursiva Server is an Express application and API that works as the server and core of the **Cursiva: University Academic Manager** project.
 
