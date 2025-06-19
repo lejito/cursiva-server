@@ -1,6 +1,6 @@
 # Cursiva Backend
 
-Cursiva Backend is an Express application and API that works as the server and core of the **Cursiva: University Academic Manager** project. To view all the project, visit the [project page](https://github.com/users/lejito/projects/4?pane=info).
+Cursiva Server is an Express application and API that works as the server and core of the **Cursiva: University Academic Manager** project. To view all the project, visit the [project page](https://github.com/users/lejito/projects/4?pane=info).
 
 ## How to run
 
